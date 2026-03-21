@@ -1,5 +1,10 @@
+import { Outlet } from "react-router-dom";
+import { useAuth } from "./hooks/useAuth";
+
 function App() {
-  return <div>App</div>;
+  useAuth();
+
+  return <Outlet />;
 }
 
 export default App;
