@@ -11,6 +11,7 @@ type TextInputProps = {
   width?: string;
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
+  isError?: boolean;
 };
 
 export const TextInput = ({
@@ -24,6 +25,7 @@ export const TextInput = ({
   variant = "outlined",
   startIcon,
   endIcon,
+  isError = false,
 }: TextInputProps) => {
   const renderStartIcon = () => (
     <InputAdornment position="start">{startIcon}</InputAdornment>
@@ -42,6 +44,7 @@ export const TextInput = ({
       required={required}
       variant={variant}
       sx={{ width }}
+      error={isError}
       slotProps={{
         input: {
           ...(startIcon && { startAdornment: renderStartIcon() }),

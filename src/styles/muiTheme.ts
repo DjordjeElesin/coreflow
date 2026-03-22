@@ -1,6 +1,15 @@
 import { createTheme } from "@mui/material/styles";
 import { CYAN, EMERALD, gradient, SLATE } from "./colors";
 
+declare module "@mui/material/styles" {
+  interface TypeBackground {
+    sidebar: string;
+    content: string;
+    card: string;
+    elevated: string;
+  }
+}
+
 export const theme = createTheme({
   palette: {
     mode: "dark",
@@ -22,6 +31,10 @@ export const theme = createTheme({
     background: {
       default: SLATE[900],
       paper: SLATE[800],
+      sidebar: SLATE[850],
+      content: SLATE[900],
+      card: SLATE[800],
+      elevated: SLATE[700],
     },
 
     text: {
