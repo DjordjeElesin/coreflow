@@ -1,4 +1,5 @@
 import {
+  logout,
   setFetchingUser,
   setInitialized,
   setToken,
@@ -44,6 +45,7 @@ export const onGetMeStarted = async ({
     dispatch(setInitialized());
   } catch (error) {
     console.error("Failed to fetch user data during boot check: ", error);
+    dispatch(logout());
     dispatch(setInitialized());
   }
 };

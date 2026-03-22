@@ -7,6 +7,7 @@ export const useLogin = () => {
     username: "",
     password: "",
   });
+  const [isError, setIsError] = useState(false);
   const [login, { isLoading }] = useLoginMutation();
   const navigate = useNavigate();
   const isDisabled =
@@ -17,14 +18,22 @@ export const useLogin = () => {
     try {
       await login(credentials).unwrap();
       navigate("/dashboard");
-    } catch (error) {
-      console.error("Login failed: ", error);
+    } catch {
+      setIsError(true);
     }
   };
 
   const onCredentialsChange = (field: string, value: string) => {
+    setIsError(false);
     setCredentials((prev) => ({ ...prev, [field]: value }));
   };
 
-  return { onLogin, onCredentialsChange, credentials, isLoading, isDisabled };
+  return {
+    onLogin,
+    onCredentialsChange,
+    credentials,
+    isLoading,
+    isDisabled,
+    isError,
+  };
 };

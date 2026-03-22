@@ -16,7 +16,7 @@ export const userApi = baseApi.injectEndpoints({
         method: "POST",
         body: {
           ...credentials,
-          expiresInMins: 90,
+          expiresInMins: 1,
         },
       }),
 

@@ -6,6 +6,7 @@ import { useEffect } from "react";
 export const useAuth = () => {
   const dispatch = useAppDispatch();
   const token = useAppSelector((state) => state.auth.token);
+
   const {
     data: user,
     isSuccess,

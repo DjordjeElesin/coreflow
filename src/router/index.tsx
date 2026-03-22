@@ -5,6 +5,7 @@ import { Dashboard } from "@/pages/Dashboard";
 import { Login } from "@/pages/Login";
 import { ProtectedRoute } from "@/router/ProtectedRoute";
 import { PublicRoute } from "./PublicRoute";
+import { MainLayout } from "@/layouts/MainLayout";
 
 const routes = [
   {
@@ -22,20 +23,45 @@ const routes = [
       },
       { index: true, element: <Navigate to="/dashboard" replace /> },
       {
-        path: "dashboard",
         element: (
           <ProtectedRoute>
-            <Dashboard />
+            <MainLayout />
           </ProtectedRoute>
         ),
-      },
-      {
-        path: "employees",
-        element: (
-          <ProtectedRoute>
-            <div>Employees</div>
-          </ProtectedRoute>
-        ),
+        children: [
+          {
+            path: "dashboard",
+            element: <Dashboard />,
+          },
+          {
+            path: "employees",
+            element: <div>Employees</div>,
+          },
+          {
+            path: "inventory",
+            element: (
+              <ProtectedRoute>
+                <div>Inventory</div>
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: "procurement",
+            element: (
+              <ProtectedRoute>
+                <div>Procurement</div>
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: "customers",
+            element: (
+              <ProtectedRoute>
+                <div>Customers</div>
+              </ProtectedRoute>
+            ),
+          },
+        ],
       },
     ],
   },

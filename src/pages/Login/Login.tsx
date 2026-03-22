@@ -2,21 +2,20 @@ import { CoreflowLogo } from "@/components/CoreflowLogo";
 import { Footer } from "@/components/Footer";
 import { useLogin } from "@/components/Loading/useLogin";
 import { TextInput } from "@/components/TextInput";
+import { FullScreenContainer } from "@/layouts/FullScreenContainer";
 import { Box, Button, CircularProgress, Paper } from "@mui/material";
 
 export const Login = () => {
-  const { credentials, onCredentialsChange, onLogin, isLoading, isDisabled } =
-    useLogin();
+  const {
+    credentials,
+    onCredentialsChange,
+    onLogin,
+    isLoading,
+    isDisabled,
+    isError,
+  } = useLogin();
   return (
-    <Box
-      sx={{
-        minHeight: "100vh",
-        width: "100%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
+    <FullScreenContainer>
       <Paper
         component="form"
         sx={{
@@ -38,6 +37,7 @@ export const Login = () => {
           value={credentials.username}
           onChange={(value) => onCredentialsChange("username", value)}
           required
+          isError={isError}
         />
         <TextInput
           label="Password"
@@ -45,6 +45,7 @@ export const Login = () => {
           onChange={(value) => onCredentialsChange("password", value)}
           required
           type="password"
+          isError={isError}
         />
         <Button
           variant="contained"
@@ -56,6 +57,6 @@ export const Login = () => {
         </Button>
       </Paper>
       <Footer />
-    </Box>
+    </FullScreenContainer>
   );
 };
