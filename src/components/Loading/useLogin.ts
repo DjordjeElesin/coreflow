@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLoginMutation } from "@/api/endpoints/userEndpoints/userEndpoints";
+import { useLoginMutation } from "@/api/endpoints/authEndpoints/authEndpoints";
 import { useNavigate } from "react-router-dom";
 
 export const useLogin = () => {

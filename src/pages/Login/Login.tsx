@@ -56,7 +56,7 @@ export const Login = () => {
           {isLoading ? <CircularProgress size={24} /> : "Sign In"}
         </Button>
       </Paper>
-      <Footer />
+      <Footer variant="fixed" />
     </FullScreenContainer>
   );
 };

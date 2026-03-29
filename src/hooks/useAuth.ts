@@ -1,4 +1,4 @@
-import { useGetMeQuery } from "@/api/endpoints/userEndpoints";
+import { useGetMeQuery } from "@/api/endpoints/authEndpoints";
 import { setInitialized, setUser } from "@/store/auth/authReducer";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { useEffect } from "react";

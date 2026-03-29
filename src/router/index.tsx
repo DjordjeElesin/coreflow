@@ -6,6 +6,8 @@ import { Login } from "@/pages/Login";
 import { ProtectedRoute } from "@/router/ProtectedRoute";
 import { PublicRoute } from "./PublicRoute";
 import { MainLayout } from "@/layouts/MainLayout";
+import { Employees } from "@/pages/Employees";
+import { EmployeeDetails } from "@/pages/EmployeeDetails";
 
 const routes = [
   {
@@ -35,7 +37,19 @@ const routes = [
           },
           {
             path: "employees",
-            element: <div>Employees</div>,
+            element: (
+              <ProtectedRoute roles={["admin"]}>
+                <Employees />
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: "employees/:id",
+            element: (
+              <ProtectedRoute roles={["admin"]}>
+                <EmployeeDetails />
+              </ProtectedRoute>
+            ),
           },
           {
             path: "inventory",

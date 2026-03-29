@@ -1,6 +1,6 @@
 import type { TUser } from "@/types/types";
 import { baseApi } from "../../baseApi";
-import { onGetMeStarted, onLoginStarted } from "./userEndpointHandlers";
+import { onGetMeStarted, onLoginStarted } from "./authEndpointHandlers";
 
 export type TLoginRequest = { username: string; password: string };
 export type TLoginResponse = TUser & {

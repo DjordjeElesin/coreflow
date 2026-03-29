@@ -1,6 +1,9 @@
-import { NavSidebar } from "@/components/NavSidebar";
 import { Box } from "@mui/material";
 import { Outlet } from "react-router-dom";
+import { NavSidebar } from "@/components/NavSidebar";
+import { ScrollableContent } from "./ScrollableContent";
+import { TopHeaderBar } from "@/components/TopHeaderBar";
+import { Footer } from "@/components/Footer";
 
 export const MainLayout = () => {
   return (
@@ -11,7 +14,11 @@ export const MainLayout = () => {
       }}
     >
       <NavSidebar />
-      <Outlet />
+      <ScrollableContent>
+        <TopHeaderBar />
+        <Outlet />
+        <Footer width="calc(100%-200px)" />
+      </ScrollableContent>
     </Box>
   );
 };

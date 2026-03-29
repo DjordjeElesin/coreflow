@@ -1,16 +1,25 @@
 import { Box } from "@mui/material";
 
-export const Footer = () => (
+type TFooterProps = {
+  width?: string;
+  variant?: "flow" | "fixed";
+};
+
+export const Footer = ({ width = "100%", variant = "flow" }: TFooterProps) => (
   <Box
     sx={{
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
       height: "50px",
-      position: "absolute",
-      bottom: 0,
-      width: "100%",
+      marginTop: variant === "flow" ? "auto" : 0,
+      width,
       color: "text.secondary",
+      ...(variant === "fixed" && {
+        position: "absolute",
+        bottom: 0,
+        width: "100%",
+      }),
     }}
   >
     &copy; {new Date().getFullYear()} Coreflow - Djordje Elesin. All rights

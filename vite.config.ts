@@ -10,4 +10,9 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  server: {
+    host: "coreflow.local",
+    port: 3000,
+    open: "http://coreflow.local:3000",
+  },
 });

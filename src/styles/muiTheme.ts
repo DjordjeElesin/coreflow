@@ -98,6 +98,29 @@ export const theme = createTheme({
     },
   },
   components: {
+    // --- Scrollbar ---
+    MuiCssBaseline: {
+      styleOverrides: {
+        "*": {
+          scrollbarWidth: "thin",
+          scrollbarColor: `${SLATE[600]} transparent`,
+        },
+        "*::-webkit-scrollbar": {
+          width: "6px",
+          height: "6px",
+        },
+        "*::-webkit-scrollbar-track": {
+          background: "transparent",
+        },
+        "*::-webkit-scrollbar-thumb": {
+          backgroundColor: SLATE[600],
+          borderRadius: "999px",
+          "&:hover": {
+            backgroundColor: SLATE[500],
+          },
+        },
+      },
+    },
     // --- Buttons ---
     MuiButton: {
       styleOverrides: {

@@ -6,7 +6,7 @@ import {
   setUser,
 } from "@/store/auth/authReducer";
 import { displayToast } from "@/utils/displayToast/displayToast";
-import { userApi, type TLoginResponse } from "./userEndpoints";
+import { userApi, type TLoginResponse } from "./authEndpoints";
 import type { AppDispatch } from "@/store/store";
 import type { TUser } from "@/types/types";
 import { handleErrors } from "@/utils/handleErrors";
