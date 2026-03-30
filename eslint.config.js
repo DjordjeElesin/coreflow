@@ -18,6 +18,7 @@ export default defineConfig([
     rules: {
       "react-refresh/only-export-components": "off",
       "no-console": ["warn", { allow: ["error"] }],
+      "react-hooks/exhaustive-deps": "off",
     },
     languageOptions: {
       ecmaVersion: 2020,

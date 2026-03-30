@@ -2,11 +2,12 @@ import {
   logout,
   setFetchingUser,
   setInitialized,
+  setRefreshToken,
   setToken,
   setUser,
 } from "@/store/auth/authReducer";
 import { displayToast } from "@/utils/displayToast/displayToast";
-import { userApi, type TLoginResponse } from "./userEndpoints";
+import { userApi, type TLoginResponse } from "./authEndpoints";
 import type { AppDispatch } from "@/store/store";
 import type { TUser } from "@/types/types";
 import { handleErrors } from "@/utils/handleErrors";
@@ -21,6 +22,7 @@ export const onLoginStarted = async ({
   try {
     const { data } = await queryFulfilled;
     dispatch(setToken(data.accessToken));
+    dispatch(setRefreshToken(data.refreshToken));
     dispatch(setFetchingUser(true));
     await dispatch(
       userApi.endpoints.getMe.initiate(undefined, { forceRefetch: true }),

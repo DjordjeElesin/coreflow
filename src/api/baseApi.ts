@@ -1,3 +1,4 @@
+import { logout, setRefreshToken, setToken } from "@/store/auth/authReducer";
 import type { RootState } from "@/store/store";
 import {
   createApi,
@@ -39,9 +40,42 @@ const customBaseQuery: BaseQueryFn<
   })(args, api, extraOptions);
 };
 
+const customBaseQueryWithReauth: BaseQueryFn<
+  CustomFetchArgs,
+  unknown,
+  FetchBaseQueryError
+> = async (args, api, extraOptions) => {
+  let result = await customBaseQuery(args, api, extraOptions);
+  if (result.error && result.error.status === 401) {
+    const refreshToken = (api.getState() as RootState).auth.refreshToken;
+    const refreshResult = await customBaseQuery(
+      {
+        url: "/auth/refresh",
+        method: "POST",
+        body: { refreshToken, expiresInMins: 2900 },
+      },
+      api,
+      extraOptions,
+    );
+
+    const refreshData = refreshResult.data as {
+      accessToken: string;
+      refreshToken: string;
+    };
+
+    if (refreshData) {
+      api.dispatch(setToken(refreshData.accessToken));
+      api.dispatch(setRefreshToken(refreshData.refreshToken));
+
+      result = await customBaseQuery(args, api, extraOptions);
+    } else api.dispatch(logout());
+  }
+  return result;
+};
+
 export const baseApi = createApi({
   reducerPath: "api",
-  baseQuery: customBaseQuery,
+  baseQuery: customBaseQueryWithReauth,
   tagTypes: ["Auth", "Customer", "Dashboard", "Employee", "Product"],
   endpoints: () => ({}),
 });

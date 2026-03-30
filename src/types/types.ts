@@ -47,3 +47,11 @@ export type TUser = {
   company: TCompany;
   role: TRole;
 };
+
+
+export type TUserResponse = {
+  users: TUser[];
+  total: number
+  skip: number
+  limit: number
+}

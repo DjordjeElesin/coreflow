@@ -1,10 +1,18 @@
 import { Box } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
 import type { TNavItem } from "./navLinks";
+import { useAppSelector } from "@/store/store";
 
 export const NavItem = ({ item }: { item: TNavItem }) => {
   const location = useLocation();
+  const userRole = useAppSelector((state) => state.auth.user?.role);
+
   const isActive = location.pathname === item.path;
+  const shouldRender =
+    item.roles && userRole ? item.roles.includes(userRole) : true;
+
+  if (!shouldRender) return null;
+
   return (
     <Link to={item.path} style={{ textDecoration: "none", width: "100%" }}>
       <Box
