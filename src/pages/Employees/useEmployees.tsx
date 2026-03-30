@@ -1,8 +1,8 @@
 import { useGetEmployeesQuery } from "@/api/endpoints/employeesEndpoints";
-import { PAGE_SIZE } from "@/components/TableList/TableList";
 import type { TUser } from "@/types/types";
-import { type MouseEvent } from "react";
+import { useMemo, type MouseEvent } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { employeesColumnDefs } from "./employeesColumnDefs";
 
 export const useEmployees = () => {
   const navigate = useNavigate();
@@ -10,16 +10,18 @@ export const useEmployees = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const page = Number(searchParams.get("page") ?? 0);
   const search = searchParams.get("search");
-  const sort = searchParams.get("sort");
-  const order = searchParams.get("order") ?? "asc";
+  const department = searchParams.get("department");
 
   const { data, isLoading, error } = useGetEmployeesQuery({
-    limit: PAGE_SIZE,
-    skip: page * PAGE_SIZE,
     search: search,
-    // sortBy: sort ?? sortingFields[0],
-    order,
   });
+
+  const filteredData = useMemo(() => {
+    if (!department) return data?.users;
+    return data?.users?.filter(
+      ({ company }) => company.department === department,
+    );
+  }, [data, department]);
 
   const onRowClicked = (row: TUser) => {
     navigate(`/employees/${row.id}`);
@@ -43,34 +45,28 @@ export const useEmployees = () => {
       return prev;
     });
 
-  const onSort = (field: string) =>
+  const onFilterChange = (value: string) => {
     setSearchParams((prev) => {
-      prev.set("sort", field);
+      if (value) prev.set("department", value);
+      else prev.delete("department");
+
+      prev.set("page", "0");
       return prev;
     });
+  };
 
-  const onSortOrder = (order: string) =>
-    setSearchParams((prev) => {
-      if (order === "asc") prev.delete("order");
-      else prev.set("order", order);
-      return prev;
-    });
-
-  //   const columns = useMemo(() => columnDefs, []);
+  const columns = useMemo(() => employeesColumnDefs, []);
 
   return {
-    data,
+    users: filteredData,
     isLoading,
     error,
-    // columns,
+    columns,
     page,
-    sort,
     search,
-    order,
     onRowClicked,
     onPageChange,
     onSearch,
-    onSort,
-    onSortOrder,
+    onFilterChange,
   };
 };

@@ -13,7 +13,7 @@ createRoot(document.getElementById("root")!).render(
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <RouterProvider router={router} />
-      <ToastContainer autoClose={5000} pauseOnFocusLoss pauseOnHover />
+      <ToastContainer autoClose={3000} pauseOnFocusLoss pauseOnHover />
     </ThemeProvider>
   </Provider>,
 );

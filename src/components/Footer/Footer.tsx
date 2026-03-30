@@ -13,6 +13,7 @@ export const Footer = ({ width = "100%", variant = "flow" }: TFooterProps) => (
       justifyContent: "center",
       height: "50px",
       marginTop: variant === "flow" ? "auto" : 0,
+      paddingTop: 2,
       width,
       color: "text.secondary",
       ...(variant === "fixed" && {

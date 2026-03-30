@@ -4,6 +4,7 @@ export const Loading = () => {
   return (
     <Box
       sx={{
+        zIndex: 9999,
         position: "fixed",
         top: 0,
         left: 0,
