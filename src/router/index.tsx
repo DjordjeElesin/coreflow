@@ -60,10 +60,26 @@ const routes = [
             ),
           },
           {
+            path: "inventory/:id",
+            element: (
+              <ProtectedRoute>
+                <div>Inventory Details</div>
+              </ProtectedRoute>
+            ),
+          },
+          {
             path: "procurement",
             element: (
               <ProtectedRoute>
                 <div>Procurement</div>
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: "procurement/:id",
+            element: (
+              <ProtectedRoute>
+                <div>Procurement Details</div>
               </ProtectedRoute>
             ),
           },

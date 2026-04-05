@@ -1,9 +1,16 @@
 import { baseApi } from "@/api/baseApi";
-import type { TUserResponse } from "@/types/types";
+import type { TTask, TUser, TUserResponse } from "@/types/types";
 
 type TGetEmployeesParams = {
   search: string | null;
   sortBy?: string;
+};
+
+export type TTasksResponse = {
+  todos: TTask[];
+  total: number;
+  skip: number;
+  limit: number;
 };
 
 const employeesEndpoints = baseApi.injectEndpoints({
@@ -18,7 +25,17 @@ const employeesEndpoints = baseApi.injectEndpoints({
         return { url: `/users/search?${params}` };
       },
     }),
+    getEmployeeById: builder.query<TUser, number>({
+      query: (id) => ({ url: `/users/${id}` }),
+    }),
+    getEmployeeTasks: builder.query<TTasksResponse, number>({
+      query: (userId) => ({ url: `/todos/user/${userId}` }),
+    }),
   }),
 });
 
-export const { useGetEmployeesQuery } = employeesEndpoints;
+export const {
+  useGetEmployeesQuery,
+  useGetEmployeeByIdQuery,
+  useGetEmployeeTasksQuery,
+} = employeesEndpoints;

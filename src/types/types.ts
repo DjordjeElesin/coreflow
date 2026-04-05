@@ -40,6 +40,7 @@ export type TUser = {
   username: string;
   password: string;
   birthDate: string;
+  bloodGroup: string;
   image: string;
   address: TAddress;
   university: string;
@@ -48,10 +49,16 @@ export type TUser = {
   role: TRole;
 };
 
+export type TTask = {
+  id: number;
+  todo: string;
+  completed: boolean;
+  userId: number;
+};
 
 export type TUserResponse = {
   users: TUser[];
-  total: number
-  skip: number
-  limit: number
-}
+  total: number;
+  skip: number;
+  limit: number;
+};

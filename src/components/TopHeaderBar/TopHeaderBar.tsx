@@ -1,9 +1,6 @@
+import { getTitle } from "@/hooks/useTitle";
 import { Box, Typography } from "@mui/material";
 import { useLocation } from "react-router-dom";
-import { links } from "../NavSidebar/navLinks";
-
-const getPageTitle = (pathname: string) =>
-  links.find((link) => link.path === pathname)?.name ?? "Page";
 
 export const TopHeaderBar = () => {
   const location = useLocation();
@@ -23,7 +20,7 @@ export const TopHeaderBar = () => {
       }}
     >
       <Typography variant="h6" fontWeight={700}>
-        {getPageTitle(location.pathname)}
+        {getTitle(location.pathname)}
       </Typography>
     </Box>
   );
