@@ -1,17 +1,19 @@
 import type { TUser } from "@/types/types";
 import { getUserFullName } from "@/utils/getUserFullName/getUserFullName";
-import { Avatar, Box, Typography } from "@mui/material";
+import { Avatar, Box, Typography, type SxProps } from "@mui/material";
 
 type TAvatarProps = {
   user: TUser;
   size?: number;
   showName?: boolean;
+  sx?: SxProps;
 };
 
 export const UserAvatar = ({
   user,
   size = 30,
   showName = true,
+  sx,
 }: TAvatarProps) => {
   return (
     <Box
@@ -22,6 +24,8 @@ export const UserAvatar = ({
         width: "100%",
         borderRadius: 2,
         padding: 1,
+        ...sx,
+
         // --- Use after profile page is implemented ---
         // ":hover": {
         //   backgroundColor: "action.hover",
