@@ -1,23 +1,23 @@
 import { Loading } from "@/components/Loading";
 import { TableList } from "@/components/TableList";
 import type { TColumn } from "@/components/TableList/TableList";
-import type { TUser } from "@/types/types";
+import type { TProduct } from "@/types/types";
 import type { MouseEvent } from "react";
 
-type TEmployeesTableProps = {
+type TInventoryTableProps = {
   isLoading: boolean;
-  columns: TColumn<TUser>[];
-  data: TUser[];
+  columns: TColumn<TProduct>[];
+  data: TProduct[];
   count?: number;
   page: number;
-  onRowClicked?: (row: TUser) => void;
+  onRowClicked?: (row: TProduct) => void;
   onPageChange: (
     event: MouseEvent<HTMLButtonElement> | null,
     newPage: number,
   ) => void;
 };
 
-export const EmployeesTable = ({
+export const InventoryTable = ({
   isLoading,
   columns,
   data,
@@ -25,7 +25,7 @@ export const EmployeesTable = ({
   page,
   onRowClicked,
   onPageChange,
-}: TEmployeesTableProps) => {
+}: TInventoryTableProps) => {
   if (isLoading) return <Loading />;
 
   return (

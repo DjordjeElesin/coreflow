@@ -8,6 +8,7 @@ import { PublicRoute } from "./PublicRoute";
 import { MainLayout } from "@/layouts/MainLayout";
 import { Employees } from "@/pages/Employees";
 import { EmployeeDetails } from "@/pages/EmployeeDetails";
+import { Inventory } from "@/pages/Inventory";
 
 const routes = [
   {
@@ -55,7 +56,7 @@ const routes = [
             path: "inventory",
             element: (
               <ProtectedRoute>
-                <div>Inventory</div>
+                <Inventory />
               </ProtectedRoute>
             ),
           },

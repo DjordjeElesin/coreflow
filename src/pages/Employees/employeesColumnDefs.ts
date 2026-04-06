@@ -1,5 +1,5 @@
 import { defaultCellRenderer } from "@/components/TableList/cellRenderers/defaultCellRenderer";
-import { departmentChipCellRenderer } from "@/components/TableList/cellRenderers/departmentChipCellRenderer";
+import { chipCellRenderer } from "@/components/TableList/cellRenderers/chipCellRenderer";
 import { thumbnailCellRenderer } from "@/components/TableList/cellRenderers/thumbnailCellRenderer";
 import type { TColumn } from "@/components/TableList/TableList";
 import type { TUser } from "@/types/types";
@@ -19,7 +19,7 @@ export const employeesColumnDefs: TColumn<TUser>[] = [
   {
     id: "company.department",
     label: "Department",
-    cellRenderer: departmentChipCellRenderer,
+    cellRenderer: chipCellRenderer,
   },
   {
     id: "company.title",

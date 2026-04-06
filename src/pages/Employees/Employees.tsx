@@ -7,6 +7,7 @@ import { PAGE_SIZE } from "@/components/TableList/TableList";
 export const Employees = () => {
   const {
     users,
+    department,
     isLoading,
     columns,
     page,
@@ -24,6 +25,8 @@ export const Employees = () => {
       <EmployeesSearchAndFilter
         onSearch={onSearch}
         onFilterChange={onFilterChange}
+        value={department}
+        employeeTotal={users?.length ?? 0}
       />
       <EmployeesTable
         data={paginatedData}

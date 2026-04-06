@@ -55,8 +55,8 @@ export const TableList = <T extends { id: string | number }>({
         <Table aria-label="table">
           <TableHead>
             <TableRow>
-              {columns.map(({ label }) => (
-                <TableCell key={label}>{label}</TableCell>
+              {columns.map(({ id, label }) => (
+                <TableCell key={id}>{label}</TableCell>
               ))}
             </TableRow>
           </TableHead>
@@ -88,7 +88,7 @@ export const TableList = <T extends { id: string | number }>({
           </TableBody>
         </Table>
       </TableContainer>
-      {showPagination && (
+      {showPagination ? (
         <TablePagination
           colSpan={3}
           count={count}
@@ -98,7 +98,7 @@ export const TableList = <T extends { id: string | number }>({
           onPageChange={onPageChange}
           component="div"
         />
-      )}
+      ) : null}
     </Paper>
   );
 };
