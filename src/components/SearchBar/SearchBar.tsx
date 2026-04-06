@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import debounce from "lodash/debounce";
 import { Search } from "@mui/icons-material";
 import { TextInput } from "../TextInput";
@@ -18,9 +18,18 @@ export const SearchBar = ({
 }: TSearchBarProp) => {
   const [query, setQuery] = useState(defaultQuery);
 
-  const debouncedSearch = useRef(
-    debounce((value: string) => onSearch(value), 300),
-  ).current;
+  const onSearchRef = useRef(onSearch);
+  useEffect(() => {
+    onSearchRef.current = onSearch;
+  }, [onSearch]);
+
+  const debouncedSearch = useMemo(
+    // eslint-disable-next-line react-hooks/refs
+    () => debounce((value: string) => onSearchRef.current(value), 300),
+    [],
+  );
+
+  useEffect(() => () => debouncedSearch.cancel(), [debouncedSearch]);
 
   const onChange = (value: string) => {
     setQuery(value);

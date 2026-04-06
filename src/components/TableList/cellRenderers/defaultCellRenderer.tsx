@@ -9,6 +9,6 @@ export const defaultCellRenderer = (value: string) => (
       textWrap: "nowrap",
     }}
   >
-    {value}
+    {value ? value : "-"}
   </Box>
 );

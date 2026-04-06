@@ -1,30 +1,30 @@
-import { useGetEmployeesQuery } from "@/api/endpoints/employeesEndpoints";
-import type { TUser } from "@/types/types";
+import { useGetInventoryQuery } from "@/api/endpoints/inventoryEndpoints/inventoryEndpoints";
+import type { TProduct } from "@/types/types";
 import { useMemo, type MouseEvent } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { employeesColumnDefs } from "./employeesColumnDefs";
+import { inventoryColumnDefs } from "./inventoryColumnDefs";
 
-export const useEmployees = () => {
+export const useInventory = () => {
   const navigate = useNavigate();
 
   const [searchParams, setSearchParams] = useSearchParams();
   const page = Number(searchParams.get("page") ?? 0);
   const search = searchParams.get("search");
-  const department = searchParams.get("department");
+  const categoryFilter = searchParams.get("category");
 
-  const { data, isLoading, error } = useGetEmployeesQuery({
+  const { data, isLoading, error } = useGetInventoryQuery({
     search: search,
   });
 
   const filteredData = useMemo(() => {
-    if (!department) return data?.users;
-    return data?.users?.filter(
-      ({ company }) => company.department === department,
+    if (!categoryFilter) return data?.products;
+    return data?.products?.filter(
+      ({ category }) => category === categoryFilter,
     );
-  }, [data, department]);
+  }, [data, categoryFilter]);
 
-  const onRowClicked = (row: TUser) => {
-    navigate(`/employees/${row.id}`);
+  const onRowClicked = (row: TProduct) => {
+    navigate(`/inventory/${row.id}`);
   };
 
   const onPageChange = (
@@ -47,19 +47,19 @@ export const useEmployees = () => {
 
   const onFilterChange = (value: string) => {
     setSearchParams((prev) => {
-      if (value) prev.set("department", value);
-      else prev.delete("department");
+      if (value) prev.set("category", value);
+      else prev.delete("category");
 
       prev.set("page", "0");
       return prev;
     });
   };
 
-  const columns = useMemo(() => employeesColumnDefs, []);
+  const columns = useMemo(() => inventoryColumnDefs, []);
 
   return {
-    users: filteredData,
-    department,
+    products: filteredData,
+    categoryFilter,
     isLoading,
     error,
     columns,
