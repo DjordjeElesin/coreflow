@@ -1,5 +1,5 @@
 name: Setup
-description: Checkout, setup Node, install dependencies with cache
+description: Setup Node.js and install dependencies with Yarn cache
 
 runs:
   using: composite
@@ -11,4 +11,4 @@ runs:
         cache: yarn
     - name: Install dependencies
       shell: bash
-      run: yarn install --frozen-lockfile
+      run: corepack enable && yarn install --frozen-lockfile --non-interactive
