@@ -21,8 +21,8 @@ export const EmployeeTabs = ({
   onTabChange,
 }: TEmployeeDetailsTabProps) => {
   const { id } = useParams<{ id: string }>();
-  const { data: employee } = useGetEmployeeByIdQuery(Number(id));
-  const { data: tasksData } = useGetEmployeeTasksQuery(Number(id));
+  const { data: employee } = useGetEmployeeByIdQuery({ id });
+  const { data: tasksData } = useGetEmployeeTasksQuery({ id });
 
   if (!tasksData || !employee) return null;
 

@@ -105,3 +105,8 @@ export type TProduct = {
   thumbnail: string;
   images: string[];
 };
+
+export type TImage = {
+  src: string;
+  alt?: string;
+};

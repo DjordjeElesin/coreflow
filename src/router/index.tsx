@@ -9,6 +9,7 @@ import { MainLayout } from "@/layouts/MainLayout";
 import { Employees } from "@/pages/Employees";
 import { EmployeeDetails } from "@/pages/EmployeeDetails";
 import { Inventory } from "@/pages/Inventory";
+import { ProductDetails } from "@/pages/ProductDetails";
 
 const routes = [
   {
@@ -54,43 +55,23 @@ const routes = [
           },
           {
             path: "inventory",
-            element: (
-              <ProtectedRoute>
-                <Inventory />
-              </ProtectedRoute>
-            ),
+            element: <Inventory />,
           },
           {
             path: "inventory/:id",
-            element: (
-              <ProtectedRoute>
-                <div>Inventory Details</div>
-              </ProtectedRoute>
-            ),
+            element: <ProductDetails />,
           },
           {
             path: "procurement",
-            element: (
-              <ProtectedRoute>
-                <div>Procurement</div>
-              </ProtectedRoute>
-            ),
+            element: <div>Procurement</div>,
           },
           {
             path: "procurement/:id",
-            element: (
-              <ProtectedRoute>
-                <div>Procurement Details</div>
-              </ProtectedRoute>
-            ),
+            element: <div>Procurement Details</div>,
           },
           {
             path: "customers",
-            element: (
-              <ProtectedRoute>
-                <div>Customers</div>
-              </ProtectedRoute>
-            ),
+            element: <div>Customers</div>,
           },
         ],
       },

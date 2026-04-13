@@ -25,11 +25,11 @@ const employeesEndpoints = baseApi.injectEndpoints({
         return { url: `/users/search?${params}` };
       },
     }),
-    getEmployeeById: builder.query<TUser, number>({
-      query: (id) => ({ url: `/users/${id}` }),
+    getEmployeeById: builder.query<TUser, { id?: string }>({
+      query: ({ id }) => ({ url: `/users/${id}` }),
     }),
-    getEmployeeTasks: builder.query<TTasksResponse, number>({
-      query: (userId) => ({ url: `/todos/user/${userId}` }),
+    getEmployeeTasks: builder.query<TTasksResponse, { id?: string }>({
+      query: ({ id }) => ({ url: `/todos/user/${id}` }),
     }),
   }),
 });

@@ -30,7 +30,7 @@ const InfoRow = ({
 
 export const EmployeeProfileCard = () => {
   const { id } = useParams<{ id: string }>();
-  const { data: employee } = useGetEmployeeByIdQuery(Number(id));
+  const { data: employee } = useGetEmployeeByIdQuery({ id });
 
   if (!employee) return null;
 
