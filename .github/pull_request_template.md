@@ -3,3 +3,4 @@
 - [ ] New feature
 - [ ] Bug fix
 - [ ] Improvement
+- [ ] Chore
