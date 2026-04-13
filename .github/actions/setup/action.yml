@@ -1,0 +1,14 @@
+name: Setup
+description: Checkout, setup Node, install dependencies with cache
+
+runs:
+  using: composite
+  steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: "20"
+        cache: yarn
+    - name: Install dependencies
+      shell: bash
+      run: yarn install --frozen-lockfile
