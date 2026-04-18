@@ -1,8 +1,8 @@
 import { baseApi } from "@/api/baseApi";
-import type { RootState } from "@/store/store";
 import type { TProduct } from "@/types/types";
+import { onUpdateStockStarted } from "./inventoryEndpointHandlers";
 
-type TGetInventoryParams = {
+export type TGetInventoryParams = {
   search: string | null;
   sortBy?: string;
 };
@@ -10,12 +10,6 @@ type TGetInventoryParams = {
 type TUpdateStockParams = {
   productId: number;
   stock: number;
-};
-
-type TRawQueryEntry = {
-  endpointName?: string;
-  originalArgs?: unknown;
-  status: string;
 };
 
 export type TInventoryResponse = {
@@ -47,41 +41,22 @@ export const inventoryEndpoints = baseApi.injectEndpoints({
         { productId, stock },
         { dispatch, queryFulfilled, getState },
       ) {
-        const queries = (getState() as RootState).api.queries as Record<
-          string,
-          TRawQueryEntry | undefined
-        >;
-
-        const patches = Object.values(queries)
-          .filter(
-            (entry) =>
-              entry?.endpointName === "getInventory" &&
-              entry.status === "fulfilled",
-          )
-          .map((entry) =>
-            dispatch(
-              inventoryEndpoints.util.updateQueryData(
-                "getInventory",
-                entry!.originalArgs as TGetInventoryParams,
-                (draft) => {
-                  const product = draft.products.find(
-                    ({ id }) => id === productId,
-                  );
-                  if (product) product.stock = stock;
-                },
-              ),
-            ),
-          );
-
-        try {
-          await queryFulfilled;
-        } catch {
-          patches.forEach((patch) => patch.undo());
-        }
+        onUpdateStockStarted(
+          { productId, stock },
+          { dispatch, queryFulfilled, getState },
+        );
       },
+    }),
+    getProductById: builder.query<TProduct, { id?: string }>({
+      query: ({ id }) => ({
+        url: `/products/${id}`,
+      }),
     }),
   }),
 });
 
-export const { useGetInventoryQuery, useUpdateStockMutation } =
-  inventoryEndpoints;
+export const {
+  useGetInventoryQuery,
+  useUpdateStockMutation,
+  useGetProductByIdQuery,
+} = inventoryEndpoints;

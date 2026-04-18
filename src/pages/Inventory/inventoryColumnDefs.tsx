@@ -1,6 +1,6 @@
 import { chipCellRenderer } from "@/components/TableList/cellRenderers/chipCellRenderer";
 import { defaultCellRenderer } from "@/components/TableList/cellRenderers/defaultCellRenderer";
-import { inventoryCorrectionCellRenderer } from "@/components/TableList/cellRenderers/inventoryCorrectionCellRenderer";
+import { InventoryCorrectionCellRenderer } from "@/components/TableList/cellRenderers/inventoryCorrectionCellRenderer";
 import { priceCellRenderer } from "@/components/TableList/cellRenderers/priceCellRenderer";
 import { ratingCellRenderer } from "@/components/TableList/cellRenderers/ratingCellRenderer";
 import { stockNumberCellRenderer } from "@/components/TableList/cellRenderers/stockNumberCellRenderer";
@@ -47,6 +47,6 @@ export const inventoryColumnDefs: TColumn<TProduct>[] = [
   {
     id: "id",
     label: "",
-    cellRenderer: inventoryCorrectionCellRenderer,
+    cellRenderer: InventoryCorrectionCellRenderer,
   },
 ];

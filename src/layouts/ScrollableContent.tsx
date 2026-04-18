@@ -20,6 +20,7 @@ export const ScrollableContent = ({
         height,
         width,
         padding: 2,
+        position: "relative",
       }}
     >
       {children}

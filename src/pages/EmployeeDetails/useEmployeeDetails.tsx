@@ -3,19 +3,16 @@ import {
   useGetEmployeeTasksQuery,
 } from "@/api/endpoints/employeesEndpoints";
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 export type TEmployeeTab = "details" | "tasks";
 
 export const useEmployeeDetails = () => {
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<TEmployeeTab>("tasks");
 
-  const { isLoading: isEmployeeLoading } = useGetEmployeeByIdQuery(Number(id));
-  const { isLoading: isTasksLoading } = useGetEmployeeTasksQuery(Number(id));
-
-  const onBack = () => navigate("/employees");
+  const { isLoading: isEmployeeLoading } = useGetEmployeeByIdQuery({ id });
+  const { isLoading: isTasksLoading } = useGetEmployeeTasksQuery({ id });
 
   const onTabChange = (_: React.SyntheticEvent, value: TEmployeeTab) =>
     setActiveTab(value);
@@ -23,7 +20,6 @@ export const useEmployeeDetails = () => {
   return {
     isLoading: isEmployeeLoading || isTasksLoading,
     activeTab,
-    onBack,
     onTabChange,
   };
 };

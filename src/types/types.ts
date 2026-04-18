@@ -81,10 +81,12 @@ export type TProductMeta = {
   createdAt: string;
   updatedAt: string;
   barcode: string;
+  qrCode: string;
 };
 
 export type TProduct = {
   id: number;
+  sku: string;
   title: string;
   description: string;
   category: string;
@@ -104,4 +106,9 @@ export type TProduct = {
   meta: TProductMeta;
   thumbnail: string;
   images: string[];
+};
+
+export type TImage = {
+  src: string;
+  alt?: string;
 };

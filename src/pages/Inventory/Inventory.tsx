@@ -4,19 +4,8 @@ import { useInventory } from "./useInventory";
 import { PAGE_SIZE } from "@/components/TableList/TableList";
 
 export const Inventory = () => {
-  const {
-    products,
-    // categoryFilter,
-    isLoading,
-    // error,
-    columns,
-    page,
-    // search,
-    onRowClicked,
-    onPageChange,
-    // onSearch,
-    // onFilterChange,
-  } = useInventory();
+  const { products, isLoading, columns, page, onRowClicked, onPageChange } =
+    useInventory();
 
   const paginatedData =
     products?.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE) ?? [];

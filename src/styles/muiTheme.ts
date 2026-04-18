@@ -1,5 +1,5 @@
 import { createTheme } from "@mui/material/styles";
-import { CYAN, EMERALD, gradient, SLATE } from "./colors";
+import { AMBER, CYAN, EMERALD, RED, SLATE } from "./colors";
 
 declare module "@mui/material/styles" {
   interface TypeBackground {
@@ -46,21 +46,24 @@ export const theme = createTheme({
     divider: SLATE[700],
 
     error: {
-      main: "#f87171",
-      light: "#fcb3b3",
-      dark: "#ef4444",
+      main: RED[400],
+      light: RED[300],
+      dark: RED[500],
+      contrastText: RED[700],
     },
 
     warning: {
-      main: "#fbbf24",
-      light: "#ffe89b",
-      dark: "#f59e0b",
+      main: AMBER[400],
+      light: AMBER[300],
+      dark: AMBER[500],
+      contrastText: AMBER[700],
     },
 
     success: {
       main: EMERALD[500],
       light: EMERALD[400],
       dark: EMERALD[600],
+      contrastText: EMERALD[700],
     },
 
     info: {
@@ -133,23 +136,22 @@ export const theme = createTheme({
         },
 
         containedPrimary: {
-          background: gradient.primary,
+          background: EMERALD[500],
           color: "#ffffff",
           "&:hover": {
-            background: gradient.primaryHover,
-            transform: "scale(1.02)",
+            background: EMERALD[400],
             transition: "all 0.2s ease",
           },
           "&:disabled": {
             opacity: 0.5,
-            background: gradient.primary,
+            background: EMERALD[500],
             color: "#ffffff",
           },
         },
 
         outlined: {
           backgroundColor: `${SLATE[700]}80`, // 50% opacity
-          borderColor: SLATE[600],
+          borderColor: SLATE[500],
           color: "#ffffff",
           "&:hover": {
             backgroundColor: `${SLATE[600]}80`,
