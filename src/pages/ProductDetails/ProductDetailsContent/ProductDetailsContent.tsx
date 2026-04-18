@@ -19,7 +19,7 @@ const mapItemsToImages = (images?: string[], title?: string) => {
 
 export const ProductDetailsContent = () => {
   const { id } = useParams<{ id: string }>();
-  const { data } = useGetProductByIdQuery({ id });
+  const { data } = useGetProductByIdQuery({ id }, { skip: !id });
 
   const imageObjects = useMemo(
     () => mapItemsToImages(data?.images, data?.title),
@@ -53,7 +53,9 @@ export const ProductDetailsContent = () => {
           <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
             <Rating value={data?.rating ?? 0} name="read-only" readOnly />
             <Typography variant="subtitle1" fontWeight={600}>
-              {Number(data?.rating).toFixed(1)}
+              {data?.rating !== undefined
+                ? Number(data.rating).toFixed(1)
+                : "0.0"}
               <Typography
                 variant="subtitle2"
                 component="span"
@@ -87,11 +89,7 @@ export const ProductDetailsContent = () => {
           qrCode={data?.meta.qrCode}
         />
         <Box sx={{ ...flexColumn, gap: 1 }}>
-          <Typography
-            variant="caption"
-            fontWeight={600}
-            color="text.secondary"
-          >
+          <Typography variant="caption" fontWeight={600} color="text.secondary">
             Order Policies
           </Typography>
           <Chip label={data?.warrantyInformation} sx={{ width: "100%" }} />
