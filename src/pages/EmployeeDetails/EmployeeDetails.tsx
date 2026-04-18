@@ -7,7 +7,7 @@ import { DetailsPageContainer } from "@/layouts/DetailsPageContainer";
 export const EmployeeDetails = () => {
   const { isLoading, activeTab, onTabChange } = useEmployeeDetails();
 
-  if (isLoading) return <Loading fullScreen={false} />;
+  if (isLoading) return <Loading />;
 
   return (
     <DetailsPageContainer

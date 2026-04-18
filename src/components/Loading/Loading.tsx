@@ -1,5 +1,4 @@
 import { Box, CircularProgress, type SxProps } from "@mui/material";
-import type { Theme } from "@mui/material/styles";
 
 type TLoadingProps = {
   isLoading?: boolean;
@@ -7,33 +6,41 @@ type TLoadingProps = {
   width?: number | string;
   height?: number | string;
   flex?: string;
-  fullScreen?: boolean;
-  sx?: SxProps<Theme>;
+  screenFit?: "full" | "page" | "inline";
+  loadingSx?: SxProps;
+};
+
+const getPositionStyle = (screenFit: TLoadingProps["screenFit"]) => {
+  if (screenFit === "full") return "fixed";
+  if (screenFit === "page") return "absolute";
+  return "relative";
 };
 
 export const Loading = ({
   isLoading = true,
   showBlur = false,
-  fullScreen = true,
+  screenFit = "page",
   width = "100%",
   height = "auto",
-  flex = "1 1 auto",
+  loadingSx,
 }: TLoadingProps) => {
   if (!isLoading) return null;
   return (
     <Box
       sx={{
         zIndex: 9999,
-        position: fullScreen ? "fixed" : "relative",
+        position: getPositionStyle(screenFit),
         top: 0,
         left: 0,
-        minHeight: fullScreen ? "100vh" : height,
+        bottom: 0,
+        minHeight: screenFit === "full" ? "100vh" : height,
         width,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         backdropFilter: showBlur ? "blur(4px)" : "none",
-        flex,
+        flex: "1 1 auto",
+        ...loadingSx,
       }}
     >
       <CircularProgress color="inherit" />

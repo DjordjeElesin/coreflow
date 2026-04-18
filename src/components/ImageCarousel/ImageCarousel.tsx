@@ -1,101 +1,172 @@
+import { useState, useCallback, useRef } from "react";
+
+import { Box, Dialog, IconButton, type SxProps } from "@mui/material";
+
+import { Loading } from "@/components/Loading";
+import { ImageNavigation } from "./ImageNavigation";
+import { Indicators } from "./Indicators";
+import { CarouselActions } from "./CarouselActions";
 import type { TImage } from "@/types";
-import { Box, Button } from "@mui/material";
-import { useState } from "react";
+import CloseIcon from "@mui/icons-material/Close";
 
-type TCarouselNavigationProps = {
-  onPrev: () => void;
-  onNext: () => void;
-};
-
-const CarouselNavigation = ({ onPrev, onNext }: TCarouselNavigationProps) => {
-  return (
-    <Box
-      sx={{
-        position: "absolute",
-        top: "50%",
-        left: 0,
-        right: 0,
-        display: "flex",
-        justifyContent: "space-between",
-        transform: "translateY(-50%)",
-      }}
-    >
-      <Button onClick={onPrev}>Prev</Button>
-      <Button onClick={onNext}>Next</Button>
-    </Box>
-  );
-};
-
-type TImageContainerProps = {
-  image: TImage;
-  offset?: number;
-  onPrev: () => void;
-  onNext: () => void;
-};
-
-const ImageContainer = ({
-  image,
-  offset,
-  onNext,
-  onPrev,
-}: TImageContainerProps) => {
-  const marginLeft = offset ? `-${offset * 100}%` : 0;
-  return (
-    <Box
-      sx={{
-        height: "100%",
-        minWidth: "100%",
-        overflow: "hidden",
-        display: "block",
-        marginLeft,
-      }}
-    >
-      <Box
-        component="img"
-        src={image.src}
-        alt={image.alt}
-        sx={{ height: "100%", width: "100%", objectFit: "contain" }}
-      />
-      <CarouselNavigation onNext={onNext} onPrev={onPrev} />
-    </Box>
-  );
-};
+const SWIPE_THRESHOLD = 50;
 
 type TImageCarouselProps = {
-  images?: TImage[];
+  images: TImage[];
   height?: number | string;
   width?: number | string;
+  extraActions?: (activeIndex: number) => React.ReactNode;
+  objectFit?: string;
+  sx?: SxProps;
 };
 
 export const ImageCarousel = ({
   images,
   height = 350,
   width = "100%",
+  objectFit = "cover",
+  extraActions,
+  sx,
 }: TImageCarouselProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  if (!images) return null;
+  const [isZoomOpen, setIsZoomOpen] = useState(false);
+  const [isZoomImageLoaded, setIsZoomImageLoaded] = useState(false);
 
-  const onNext = () => setActiveIndex((prev) => prev + 1);
-  const onPrev = () => setActiveIndex((prev) => prev - 1);
+  const hasMultiple = images?.length > 1;
+
+  const onPrevious = useCallback(() => {
+    setIsZoomImageLoaded(false);
+    setActiveIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  }, [images.length]);
+
+  const onNext = useCallback(() => {
+    setIsZoomImageLoaded(false);
+    setActiveIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  }, [images.length]);
+
+  const onOpenZoom = useCallback(() => {
+    setIsZoomImageLoaded(false);
+    setIsZoomOpen(true);
+  }, []);
+  const onCloseZoom = useCallback(() => setIsZoomOpen(false), []);
+
+  const onIndicatorClick = useCallback((index: number) => {
+    setActiveIndex(index);
+  }, []);
+
+  const touchStartX = useRef(0);
+
+  const onTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  }, []);
+
+  const onTouchEnd = useCallback(
+    (e: React.TouchEvent) => {
+      const delta = touchStartX.current - e.changedTouches[0].clientX;
+      if (delta > SWIPE_THRESHOLD) onNext();
+      if (delta < -SWIPE_THRESHOLD) onPrevious();
+    },
+    [onNext, onPrevious],
+  );
+
+  if (!images.length) return null;
 
   return (
-    <Box
-      sx={{
-        position: "relative",
-        height,
-        width,
-        display: "flex",
-      }}
-    >
-      {images?.map((img, index) => (
-        <ImageContainer
-          key={img.src}
-          offset={index === 0 ? activeIndex : 0}
-          image={img}
-          onNext={onNext}
-          onPrev={onPrev}
+    <>
+      <Box
+        id="image-carousel"
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+        sx={{ position: "relative", width, height, overflow: "hidden", ...sx }}
+      >
+        <Box
+          component="img"
+          loading="lazy"
+          src={images[activeIndex].src}
+          alt=""
+          sx={{
+            width: "100%",
+            height: "100%",
+            objectFit,
+            display: "block",
+          }}
         />
-      ))}
-    </Box>
+
+        {hasMultiple && (
+          <ImageNavigation onPrevious={onPrevious} onNext={onNext} />
+        )}
+        <CarouselActions
+          imageCount={images.length}
+          activeIndex={activeIndex}
+          onIndicatorClick={onIndicatorClick}
+          onOpenZoom={onOpenZoom}
+          hasMultiple={hasMultiple}
+          extraActions={extraActions}
+        />
+      </Box>
+
+      <Dialog
+        open={isZoomOpen}
+        onClose={onCloseZoom}
+        fullScreen
+        slotProps={{
+          paper: {
+            onTouchStart: onTouchStart,
+            onTouchEnd: onTouchEnd,
+            sx: {
+              bgcolor: "black",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            },
+          },
+        }}
+      >
+        <IconButton
+          id="image-carousel-close-zoom-btn"
+          onClick={onCloseZoom}
+          sx={{
+            position: "absolute",
+            top: 12,
+            right: 12,
+            color: "white",
+            zIndex: 1,
+            bgcolor: "rgba(255, 255, 255, 0.1)",
+            "&:hover": { bgcolor: "rgba(255, 255, 255, 0.2)" },
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+        <Loading isLoading={!isZoomImageLoaded} screenFit="inline" />
+        <Box
+          component="img"
+          src={images[activeIndex].src}
+          alt=""
+          onLoad={() => setIsZoomImageLoaded(true)}
+          sx={{
+            maxWidth: "100%",
+            maxHeight: "100%",
+            objectFit: "contain",
+            display: isZoomImageLoaded ? "block" : "none",
+          }}
+        />
+
+        {hasMultiple && (
+          <>
+            <ImageNavigation
+              onPrevious={onPrevious}
+              onNext={onNext}
+              variant="zoom"
+            />
+            <Indicators
+              count={images.length}
+              activeIndex={activeIndex}
+              onIndicatorClick={onIndicatorClick}
+              variant="zoom"
+            />
+          </>
+        )}
+      </Dialog>
+    </>
   );
 };

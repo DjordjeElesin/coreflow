@@ -11,8 +11,16 @@ export default defineConfig({
     },
   },
   server: {
-    host: "coreflow.local",
+    host: "localhost",
     port: 3000,
-    open: "http://coreflow.local:3000",
+    open: "http://localhost:3000",
+  },
+  optimizeDeps: {
+    include: [
+      "@mui/material",
+      "@mui/icons-material",
+      "@emotion/react",
+      "@emotion/styled",
+    ],
   },
 });

@@ -24,6 +24,7 @@
     "husky": "^9.1.7",
     "lodash": "^4.17.23",
     "react": "^19.2.4",
+    "react-barcode": "^1.6.1",
     "react-dom": "^19.2.4",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.13.1",

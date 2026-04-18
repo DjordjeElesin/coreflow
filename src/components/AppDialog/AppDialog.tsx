@@ -12,7 +12,7 @@ import type { TransitionProps } from "@mui/material/transitions";
 export type TAppDialogProps = {
   open: boolean;
   onClose: () => void;
-  title: string;
+  title: string | React.ReactNode;
   children: React.ReactNode;
   actions?: React.ReactNode;
   maxWidth?: DialogProps["maxWidth"];

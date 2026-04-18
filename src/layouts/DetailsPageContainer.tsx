@@ -6,12 +6,14 @@ type TPageContainerProps = {
   content: React.ReactNode;
   backToText?: string;
   contentSx?: SxProps;
+  extra?: React.ReactNode;
 };
 
 export const DetailsPageContainer = ({
   content,
   backToText,
   contentSx,
+  extra,
 }: TPageContainerProps) => {
   const navigate = useNavigate();
   return (
@@ -29,6 +31,7 @@ export const DetailsPageContainer = ({
       >
         {content}
       </Box>
+      {extra}
     </Box>
   );
 };

@@ -28,7 +28,17 @@ export const onUpdateStockStarted = async (
     TRawQueryEntry | undefined
   >;
 
-  const patches = Object.values(queries)
+  const patchesProduct = dispatch(
+    inventoryEndpoints.util.updateQueryData(
+      "getProductById",
+      { id: productId.toString() },
+      (draft) => {
+        draft.stock = stock;
+      },
+    ),
+  );
+
+  const patchesInventory = Object.values(queries)
     .filter(
       (entry) =>
         entry?.endpointName === "getInventory" && entry.status === "fulfilled",
@@ -49,6 +59,7 @@ export const onUpdateStockStarted = async (
   try {
     await queryFulfilled;
   } catch {
-    patches.forEach((patch) => patch.undo());
+    patchesInventory.forEach((patch) => patch.undo());
+    patchesProduct.undo();
   }
 };

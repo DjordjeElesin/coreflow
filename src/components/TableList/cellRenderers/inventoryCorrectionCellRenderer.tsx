@@ -2,10 +2,13 @@ import { Button } from "@mui/material";
 import BorderColorRoundedIcon from "@mui/icons-material/BorderColorRounded";
 import { useAppSelector } from "@/store/store";
 import { useState } from "react";
-import { InventoryCorrectionModal } from "./InventoryCorrectionModal";
+import { StockCorrectionModal } from "../../StockCorrectionModal/StockCorrectionModal";
 import type { TProduct } from "@/types/types";
 
-export const InventoryCorrection = (_value: string, row: TProduct) => {
+export const InventoryCorrectionCellRenderer = (
+  _value: string,
+  row: TProduct,
+) => {
   const userRole = useAppSelector((state) => state.auth.user?.role);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -26,8 +29,8 @@ export const InventoryCorrection = (_value: string, row: TProduct) => {
         Stock Correction
       </Button>
       {isOpen && (
-        <InventoryCorrectionModal
-          open={isOpen}
+        <StockCorrectionModal
+          isOpen={isOpen}
           onClose={() => setIsOpen(false)}
           productId={row.id}
           stock={row.stock}

@@ -7,19 +7,19 @@ import { Box, Button } from "@mui/material";
 import { useState } from "react";
 import { Loading } from "@/components/Loading";
 
-type TInventoryCorrectionModalProps = {
-  open: boolean;
+type TStockCorrectionModalProps = {
+  isOpen: boolean;
   onClose: () => void;
   productId: number;
   stock: number;
 };
 
-export const InventoryCorrectionModal = ({
-  open,
+export const StockCorrectionModal = ({
+  isOpen,
   onClose,
   productId,
   stock,
-}: TInventoryCorrectionModalProps) => {
+}: TStockCorrectionModalProps) => {
   const [comment, setComment] = useState("");
   const [stockValue, setStockValue] = useState(stock);
   const [updateStock, { isLoading }] = useUpdateStockMutation();
@@ -37,7 +37,7 @@ export const InventoryCorrectionModal = ({
 
   return (
     <AppDialog
-      open={open}
+      open={isOpen}
       onClose={onClose}
       title="Inventory Correction"
       actions={

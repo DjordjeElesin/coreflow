@@ -11,9 +11,27 @@ export const SLATE = {
   200: "#e5e7eb",
 };
 export const EMERALD = {
+  700: "#047857",
   600: "#059669",
   500: "#10b981",
   400: "#34d399",
+  300: "#90ebc6",
+};
+
+export const AMBER = {
+  700: "#b45309",
+  600: "#d97706",
+  500: "#f59e0b",
+  400: "#fbbf24",
+  300: "#fde68a",
+};
+
+export const RED = {
+  700: "#b91c1c",
+  600: "#dc2626",
+  500: "#ef4444",
+  400: "#f87171",
+  300: "#fca5a5",
 };
 
 export const CYAN = {
