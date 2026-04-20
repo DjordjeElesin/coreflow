@@ -3,12 +3,9 @@ import BorderColorRoundedIcon from "@mui/icons-material/BorderColorRounded";
 import { useAppSelector } from "@/store/store";
 import { useState } from "react";
 import { StockCorrectionModal } from "../../StockCorrectionModal/StockCorrectionModal";
-import type { TProduct } from "@/types/types";
+import type { TProduct } from "@/types";
 
-export const InventoryCorrectionCellRenderer = (
-  _value: string,
-  row: TProduct,
-) => {
+export const InventoryCorrectionCellRenderer = ({ row }: { row: TProduct }) => {
   const userRole = useAppSelector((state) => state.auth.user?.role);
   const [isOpen, setIsOpen] = useState(false);
 

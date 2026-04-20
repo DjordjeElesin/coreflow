@@ -1,19 +1,21 @@
 import { Box } from "@mui/material";
 import { EmployeesTable } from "./EmployeesTable";
 import { useEmployees } from "./useEmployees";
-import { EmployeesSearchAndFilter } from "./EmployeesSearchAndFilter";
 import { PAGE_SIZE } from "@/components/TableList/TableList";
+import { SearchAndFilterShell } from "@/components/SearchAndFilterShell";
 
 export const Employees = () => {
   const {
     users,
     department,
+    departmentOptions,
     isLoading,
     columns,
     page,
     onPageChange,
     onRowClicked,
     onSearch,
+    onResetFilters,
     onFilterChange,
   } = useEmployees();
 
@@ -22,11 +24,17 @@ export const Employees = () => {
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "15px" }}>
-      <EmployeesSearchAndFilter
+      <SearchAndFilterShell
+        name="employees"
+        total={users?.length ?? 0}
         onSearch={onSearch}
-        onFilterChange={onFilterChange}
-        value={department}
-        employeeTotal={users?.length ?? 0}
+        onResetFilters={onResetFilters}
+        dropdownSelectOptions={{
+          label: "Department",
+          value: department,
+          options: departmentOptions,
+          onDropdownChange: onFilterChange,
+        }}
       />
       <EmployeesTable
         data={paginatedData}

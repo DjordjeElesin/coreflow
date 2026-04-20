@@ -63,6 +63,12 @@ export type TUserResponse = {
   limit: number;
 };
 
+export type TCategory = {
+  slug: string;
+  name: string;
+  url: string;
+};
+
 export type TProductDimensions = {
   width: number;
   height: number;

@@ -1,1 +1,1 @@
-export { DropdownSelect } from "./DropdownSelect";
+export { DropdownSelect, type TSelectOption } from "./DropdownSelect";

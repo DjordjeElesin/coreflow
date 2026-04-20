@@ -11,3 +11,5 @@ export const departments = [
   "Training",
   "Sales",
 ];
+
+

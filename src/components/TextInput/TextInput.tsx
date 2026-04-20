@@ -1,4 +1,4 @@
-import { InputAdornment, TextField } from "@mui/material";
+import { InputAdornment, TextField, type SxProps } from "@mui/material";
 
 type TextInputProps = {
   value: string;
@@ -12,6 +12,7 @@ type TextInputProps = {
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
   isError?: boolean;
+  sx?: SxProps;
 };
 
 export const TextInput = ({
@@ -26,6 +27,7 @@ export const TextInput = ({
   startIcon,
   endIcon,
   isError = false,
+  sx,
 }: TextInputProps) => {
   const renderStartIcon = () => (
     <InputAdornment position="start">{startIcon}</InputAdornment>
@@ -43,7 +45,7 @@ export const TextInput = ({
       onChange={(e) => onChange(e.target.value)}
       required={required}
       variant={variant}
-      sx={{ width }}
+      sx={{ width, ...sx }}
       error={isError}
       slotProps={{
         input: {
