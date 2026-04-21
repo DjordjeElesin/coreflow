@@ -2,21 +2,26 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import debounce from "lodash/debounce";
 import { Search } from "@mui/icons-material";
 import { TextInput } from "../TextInput";
+import type { SxProps } from "@mui/material";
 
 type TSearchBarProp = {
-  defaultQuery: string;
+  defaultQuery?: string;
+  value?: string;
   onSearch: (value: string) => void;
   placeholder?: string;
   width?: string;
+  sx?: SxProps;
 };
 
 export const SearchBar = ({
-  defaultQuery,
+  defaultQuery = "",
+  value,
   onSearch,
   placeholder = "Search...",
   width = "100%",
+  sx,
 }: TSearchBarProp) => {
-  const [query, setQuery] = useState(defaultQuery);
+  const [query, setQuery] = useState(value ?? defaultQuery);
 
   const onSearchRef = useRef(onSearch);
   useEffect(() => {
@@ -28,6 +33,13 @@ export const SearchBar = ({
     () => debounce((value: string) => onSearchRef.current(value), 300),
     [],
   );
+
+  useEffect(() => {
+    if (value === "") {
+      setQuery("");
+      debouncedSearch.cancel();
+    }
+  }, [value, debouncedSearch]);
 
   useEffect(() => () => debouncedSearch.cancel(), [debouncedSearch]);
 
@@ -49,6 +61,7 @@ export const SearchBar = ({
       onChange={onChange}
       startIcon={<Search />}
       width={width}
+      sx={sx}
     />
   );
 };

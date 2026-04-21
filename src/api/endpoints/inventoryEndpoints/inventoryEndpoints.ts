@@ -1,5 +1,5 @@
 import { baseApi } from "@/api/baseApi";
-import type { TProduct } from "@/types/types";
+import type { TProduct, TCategory } from "@/types";
 import { onUpdateStockStarted } from "./inventoryEndpointHandlers";
 
 export type TGetInventoryParams = {
@@ -52,6 +52,9 @@ export const inventoryEndpoints = baseApi.injectEndpoints({
         url: `/products/${id}`,
       }),
     }),
+    getProductCategories: builder.query<TCategory[], void>({
+      query: () => ({ url: "/products/categories" }),
+    }),
   }),
 });
 
@@ -59,4 +62,5 @@ export const {
   useGetInventoryQuery,
   useUpdateStockMutation,
   useGetProductByIdQuery,
+  useGetProductCategoriesQuery,
 } = inventoryEndpoints;

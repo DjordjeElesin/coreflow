@@ -3,6 +3,13 @@ import type { TUser } from "@/types/types";
 import { useMemo, type MouseEvent } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { employeesColumnDefs } from "./employeesColumnDefs";
+import sortBy from "lodash/sortBy";
+import { departments } from "@/constants/constants";
+
+const getOptions = () => {
+  const sorted = sortBy(departments);
+  return sorted.map((item) => ({ id: item, value: item }));
+};
 
 export const useEmployees = () => {
   const navigate = useNavigate();
@@ -55,11 +62,17 @@ export const useEmployees = () => {
     });
   };
 
+  const onResetFilters = () => {
+    setSearchParams({})
+    
+  };
+
   const columns = useMemo(() => employeesColumnDefs, []);
 
   return {
     users: filteredData,
     department,
+    departmentOptions: getOptions(),
     isLoading,
     error,
     columns,
@@ -68,6 +81,7 @@ export const useEmployees = () => {
     onRowClicked,
     onPageChange,
     onSearch,
+    onResetFilters,
     onFilterChange,
   };
 };

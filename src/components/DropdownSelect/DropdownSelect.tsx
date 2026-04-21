@@ -6,13 +6,13 @@ import {
   type SelectChangeEvent,
 } from "@mui/material";
 
-type TDropdownSelectOption = {
+export type TSelectOption = {
   id: string | number;
   value: string;
 };
 
 type TDropdownSelectProps = {
-  options: TDropdownSelectOption[];
+  options: TSelectOption[];
   value: string;
   onChange: (value: string) => void;
   label?: string;

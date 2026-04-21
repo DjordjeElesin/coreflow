@@ -47,6 +47,6 @@ export const inventoryColumnDefs: TColumn<TProduct>[] = [
   {
     id: "id",
     label: "",
-    cellRenderer: InventoryCorrectionCellRenderer,
+    cellRenderer: (_, row) => <InventoryCorrectionCellRenderer row={row} />,
   },
 ];
