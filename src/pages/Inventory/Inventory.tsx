@@ -14,6 +14,7 @@ export const Inventory = () => {
     onRowClicked,
     onPageChange,
     onSearchParamsChange,
+    search,
     onResetFilters,
     categoryFilter,
     categoryOptions,
@@ -27,6 +28,7 @@ export const Inventory = () => {
     <Box sx={{ display: "flex", flexDirection: "column", gap: "15px" }}>
       <SearchAndFilterShell
         name="products"
+        searchValue={search}
         total={products?.length ?? 0}
         onSearch={(value) => onSearchParamsChange(value, "search")}
         onResetFilters={onResetFilters}
