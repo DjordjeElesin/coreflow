@@ -2,6 +2,7 @@ import { Box, Chip } from "@mui/material";
 
 type TInventoryQuickFiltersProps = {
   onSelectQuickFilter: (value: string) => void;
+  activeFilter: string | null;
 };
 
 const stockQuickFilters = [
@@ -13,6 +14,7 @@ const stockQuickFilters = [
 
 export const InventoryQuickFilters = ({
   onSelectQuickFilter,
+  activeFilter,
 }: TInventoryQuickFiltersProps) => {
   return (
     <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
@@ -21,6 +23,7 @@ export const InventoryQuickFilters = ({
           key={item}
           label={item}
           onClick={() => onSelectQuickFilter(item)}
+          color={activeFilter === item ? "primary" : "default"}
         />
       ))}
     </Box>

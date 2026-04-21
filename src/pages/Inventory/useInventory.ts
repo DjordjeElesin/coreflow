@@ -88,5 +88,6 @@ export const useInventory = () => {
     onResetFilters: () => setSearchParams({}),
     categoryFilter,
     categoryOptions,
+    stockFilter,
   };
 };

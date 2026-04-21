@@ -62,6 +62,11 @@ export const useEmployees = () => {
     });
   };
 
+  const onResetFilters = () => {
+    setSearchParams({})
+    
+  };
+
   const columns = useMemo(() => employeesColumnDefs, []);
 
   return {
@@ -76,7 +81,7 @@ export const useEmployees = () => {
     onRowClicked,
     onPageChange,
     onSearch,
-    onResetFilters: () => setSearchParams({}),
+    onResetFilters,
     onFilterChange,
   };
 };

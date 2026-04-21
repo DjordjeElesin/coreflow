@@ -15,6 +15,7 @@ export const Employees = () => {
     onPageChange,
     onRowClicked,
     onSearch,
+    search,
     onResetFilters,
     onFilterChange,
   } = useEmployees();
@@ -28,6 +29,7 @@ export const Employees = () => {
         name="employees"
         total={users?.length ?? 0}
         onSearch={onSearch}
+        searchValue={search}
         onResetFilters={onResetFilters}
         dropdownSelectOptions={{
           label: "Department",

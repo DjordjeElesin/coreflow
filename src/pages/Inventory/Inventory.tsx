@@ -17,6 +17,7 @@ export const Inventory = () => {
     onResetFilters,
     categoryFilter,
     categoryOptions,
+    stockFilter,
   } = useInventory();
 
   const paginatedData =
@@ -25,7 +26,7 @@ export const Inventory = () => {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "15px" }}>
       <SearchAndFilterShell
-        name="categories"
+        name="products"
         total={products?.length ?? 0}
         onSearch={(value) => onSearchParamsChange(value, "search")}
         onResetFilters={onResetFilters}
@@ -37,6 +38,7 @@ export const Inventory = () => {
         }}
         quickFilters={
           <InventoryQuickFilters
+            activeFilter={stockFilter}
             onSelectQuickFilter={(value) =>
               onSearchParamsChange(value, "stock")
             }
