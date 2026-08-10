@@ -4,7 +4,7 @@ import { Badge, Box, Paper, Tab, Tabs } from "@mui/material";
 import type { TEmployeeTab } from "../useEmployeeDetails";
 import { EmployeeDetailsTab } from "./EmployeeDetailsTab";
 import { EmployeeTasksTab } from "./EmployeeTasksTab";
-import { EMERALD, SLATE } from "@/styles/colors";
+import { INDIGO, SLATE } from "@/styles/colors";
 import {
   useGetEmployeeByIdQuery,
   useGetEmployeeTasksQuery,
@@ -42,8 +42,8 @@ export const EmployeeTabs = ({
           borderBottom: `1px solid ${SLATE[700]}`,
           px: 2,
           "& .MuiTab-root": { color: "text.secondary" },
-          "& .Mui-selected": { color: EMERALD[400] },
-          "& .MuiTabs-indicator": { backgroundColor: EMERALD[400] },
+          "& .Mui-selected": { color: INDIGO[400] },
+          "& .MuiTabs-indicator": { backgroundColor: INDIGO[400] },
         }}
       >
         <Tab

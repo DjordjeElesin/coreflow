@@ -4,7 +4,7 @@ import {
   Checkbox as MuiCheckbox,
   type CheckboxProps,
 } from "@mui/material";
-import { EMERALD, SLATE } from "@/styles/colors";
+import { INDIGO, SLATE } from "@/styles/colors";
 
 type TCheckboxProps = Omit<CheckboxProps, "icon" | "checkedIcon">;
 
@@ -15,7 +15,7 @@ export const Checkbox = (props: TCheckboxProps) => (
       <RadioButtonUncheckedIcon sx={{ color: SLATE[600], fontSize: 22 }} />
     }
     checkedIcon={
-      <CheckCircleIcon sx={{ color: EMERALD[500], fontSize: 22 }} />
+      <CheckCircleIcon sx={{ color: INDIGO[500], fontSize: 22 }} />
     }
     disableRipple={props.readOnly}
     sx={{

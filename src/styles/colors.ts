@@ -1,32 +1,47 @@
 export const SLATE = {
-  950: "#111318",
-  900: "#191c23",
-  850: "#20232c",
-  800: "#282c37",
-  700: "#363a47",
-  600: "#4b5060",
-  500: "#6b7280",
-  400: "#9ca3af",
-  300: "#d1d5db",
-  200: "#e5e7eb",
+  950: "#090b11",
+  900: "#0d0f16",
+  850: "#12141d",
+  800: "#171a24",
+  700: "#242835",
+  600: "#3a3f50",
+  500: "#5b6274",
+  400: "#949bad",
+  300: "#c6cbd7",
+  200: "#e7e9ef",
 };
-export const EMERALD = {
+
+export const INDIGO = {
+  700: "#4338ca",
+  600: "#4f46e5",
+  500: "#6366f1",
+  400: "#818cf8",
+  300: "#a5b4fc",
+};
+
+export const VIOLET = {
+  600: "#7c3aed",
+  500: "#8b5cf6",
+  400: "#a78bfa",
+};
+
+export const SUCCESS = {
   700: "#047857",
   600: "#059669",
   500: "#10b981",
   400: "#34d399",
-  300: "#90ebc6",
+  300: "#6ee7b7",
 };
 
-export const AMBER = {
+export const WARNING = {
   700: "#b45309",
   600: "#d97706",
   500: "#f59e0b",
   400: "#fbbf24",
-  300: "#fde68a",
+  300: "#fcd34d",
 };
 
-export const RED = {
+export const ERROR = {
   700: "#b91c1c",
   600: "#dc2626",
   500: "#ef4444",
@@ -41,7 +56,7 @@ export const CYAN = {
 };
 
 export const gradient = {
-  primary: `linear-gradient(135deg, ${EMERALD[500]}, ${CYAN[500]})`,
-  primaryHover: `linear-gradient(135deg, ${EMERALD[400]}, ${CYAN[400]})`,
-  background: `linear-gradient(135deg, ${SLATE[900]}, ${SLATE[800]}, ${SLATE[900]})`,
+  primary: `linear-gradient(135deg, ${INDIGO[500]}, ${VIOLET[500]})`,
+  primaryHover: `linear-gradient(135deg, ${INDIGO[400]}, ${VIOLET[400]})`,
+  background: `linear-gradient(135deg, ${SLATE[900]}, ${SLATE[850]}, ${SLATE[900]})`,
 };
